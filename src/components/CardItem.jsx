@@ -7,13 +7,15 @@ export default function CardItem({ card }) {
 
   const favoriteCard = favorites.find((c) => c.id === card.id);
   const comparateCard = comparator.find((c) => c.id === card.id);
-
+  console.log(card);
   return (
     <div className="card h-100">
       <div className="card-body">
         <h5 className="card-title">{card.title}</h5>
         <p className="card-text set">{card.category}</p>
-        <p className="card-text mana">{card.manaCost}</p>
+        {/* card mana cost rimosso -> backend filteredItems.map(riga 341)
+         Una soluzione temporanea potrebbe funzionare ma non serve al momento */}
+        {/* <p className="card-text">{card.manaCost}</p> */}
         <div className="d-flex justify-content-between">
           <button
             className={`btn ${
