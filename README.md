@@ -24,4 +24,4 @@ Questa SPA permetterà agli utenti non autenticati di esplorare e confrontare le
 
 - Styling: Bootstrap 5
 
-- Libraries - bootstrap, popperjs/core
+- Libraries - bootstrap, popperjs/core, react-router-dom, lodash.debounce

@@ -1,11 +1,25 @@
 //   reminder - debounce per l'input search
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import debounce from "lodash.debounce";
 import CardItem from "./CardItem";
 
 export default function CardList() {
   const [cards, setCards] = useState([]);
-  const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("");
+
+  const debounceSetSearchQuery = useCallback(
+    debounce((value) => {
+      setSearchQuery(value);
+    }, 500),
+    []
+  );
+  //cleanup debounce
+  useEffect(() => {
+    return () => {
+      debounceSetSearchQuery.cancel();
+    };
+  }, [debounceSetSearchQuery]);
 
   useEffect(() => {
     fetch("http://localhost:3001/cards")
@@ -15,7 +29,7 @@ export default function CardList() {
 
   const filteredCards = cards
     // ricerca delle carte per nome {title} - debounce da inserire una volta controllato l'effettivo funzionamento
-    .filter((c) => c.title.toLowerCase().includes(search.toLowerCase()))
+    .filter((c) => c.title.toLowerCase().includes(searchQuery.toLowerCase()))
     //filro delle carte per categoria SOLO quando è selezionata, altrimenti mostra tutte le carte.
     //* !category →  true when category === "" | null | undefined
     .filter((c) => !category || c.category === category);
@@ -25,8 +39,8 @@ export default function CardList() {
       <input
         type="text"
         placeholder="Cerca per nome..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        value={searchQuery}
+        onChange={(e) => debounceSetSearchQuery(e.target.value)}
         className="form-control mb-2"
       />
       <select
@@ -43,6 +57,7 @@ export default function CardList() {
 
       <div className="row">
         {filteredCards.map((card, index) => (
+          //index è lì solo finché non passo all'api scryfall [o inserisco gli id manualmente]
           <div key={card.id ?? index} className="col-md-4 mb-3">
             <CardItem card={card} />
           </div>
