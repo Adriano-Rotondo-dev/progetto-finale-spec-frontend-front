@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 
 export default function CardItem({ card }) {
   const { favorites, handleFavorite, comparator, handleComparator } =
-    GlobalContext;
+    useContext(GlobalContext);
 
   const favoriteCard = favorites.find((c) => c.id === card.id);
   const comparateCard = comparator.find((c) => c.id === card.id);
@@ -10,9 +11,9 @@ export default function CardItem({ card }) {
   return (
     <div className="card h-100">
       <div className="card-body">
-        <h5 className="card-title">Card title {card.title}</h5>
-        <p className="card-text set">Card set / category {card.category}</p>
-        <p className="card-text mana">Mana {card.manaCost}</p>
+        <h5 className="card-title">{card.title}</h5>
+        <p className="card-text set">{card.category}</p>
+        <p className="card-text mana">{card.manaCost}</p>
         <div className="d-flex justify-content-between">
           <button
             className={`btn ${
@@ -27,7 +28,7 @@ export default function CardItem({ card }) {
             className={`btn ${
               comparateCard ? "btn-primary" : "btn-outline-primary"
             }`}
-            onClick={handleComparator}
+            onClick={() => handleComparator(card)}
           >
             Compare card
             {/* reminder - fontawesome icon adeguata qui  */}

@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 export const GlobalContext = createContext();
 
-export function GlobalProvider({ children }) {
+export default function GlobalProvider({ children }) {
   const [favorites, setFavorites] = useState([]); // array vuoto per salvare i preferiti
   const [comparator, setComparator] = useState([]); //array vuoto per il comparatore di carte
 
