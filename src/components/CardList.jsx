@@ -1,20 +1,20 @@
 //   reminder - debounce per l'input search
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useMemo } from "react";
 import debounce from "lodash.debounce";
 import CardItem from "./CardItem";
 
 export default function CardList() {
   const [cards, setCards] = useState([]);
+
+  const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("");
 
-  const debounceSetSearchQuery = useCallback(
-    debounce((value) => {
-      setSearchQuery(value);
-    }, 500),
+  const debounceSetSearchQuery = useMemo(
+    () => debounce(setSearchQuery, 500),
     []
   );
-  //cleanup debounce
+
   useEffect(() => {
     return () => {
       debounceSetSearchQuery.cancel();
@@ -26,6 +26,12 @@ export default function CardList() {
       .then((res) => res.json())
       .then((data) => setCards(data));
   }, []);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+    debounceSetSearchQuery(value);
+  };
 
   const filteredCards = cards
     // ricerca delle carte per nome {title} - debounce da inserire una volta controllato l'effettivo funzionamento
@@ -39,8 +45,8 @@ export default function CardList() {
       <input
         type="text"
         placeholder="Cerca per nome..."
-        value={searchQuery}
-        onChange={(e) => debounceSetSearchQuery(e.target.value)}
+        value={inputValue}
+        onChange={handleSearchChange}
         className="form-control mb-2"
       />
       <select
@@ -56,9 +62,9 @@ export default function CardList() {
       </select>
 
       <div className="row">
-        {filteredCards.map((card, index) => (
+        {filteredCards.map((card) => (
           //index è lì solo finché non passo all'api scryfall [o inserisco gli id manualmente]
-          <div key={card.id ?? index} className="col-md-4 mb-3">
+          <div key={card.id} className="col-md-4 mb-3">
             <CardItem card={card} />
           </div>
         ))}
