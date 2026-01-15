@@ -62,12 +62,23 @@ export default function CardList() {
       </select>
 
       <div className="row">
-        {filteredCards.map((card) => (
-          //index è lì solo finché non passo all'api scryfall [o inserisco gli id manualmente]
-          <div key={card.id} className="col-md-4 mb-3">
-            <CardItem card={card} />
+        {/* Gestione della ricerca vuota con ternario  */}
+        {filteredCards.length > 0 ? (
+          filteredCards.map((card) => (
+            <div key={card.id} className="col-md-4 mb-3">
+              <CardItem card={card} />
+            </div>
+          ))
+        ) : (
+          <div className="col-12 text-center mt-5">
+            <h4 className="text-danger italic">
+              Non ci sono carte con questo nome "{searchQuery}"
+            </h4>
+            <p className="text-white">
+              Prova a cambiare i filtri o la ricerca.
+            </p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
