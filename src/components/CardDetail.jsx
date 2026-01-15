@@ -39,13 +39,12 @@ export default function CardDetail() {
       {/* Colonna sinistra: immagine */}
       <div className="row">
         <div className="col-md-6 d-flex flex-column align-items-center">
+          {/* Favorites - richiama dal Global Context */}
           <button
             className="btn btn-danger mb-3"
             onClick={() => handleFavorite(card)}
           >
-            {isFavorite
-              ? "❤️ Salvata nei preferiti"
-              : "🖤 Aggiungi ai preferiti"}
+            {isFavorite ? "❤️ Saved" : "🖤 Add this card to Favorites"}
           </button>
 
           {/* imageUrl  */}
@@ -56,12 +55,14 @@ export default function CardDetail() {
               className="card-img-top"
             />
           </div>
-          {/* Comparatore - MANCA LA LOGICA*/}
+          {/* Comparatore - richiama dal Global Context */}
           <button
             className="btn btn-success mt-3"
             onClick={() => handleComparator(card)}
           >
-            {isInComparator ? "Comparata" : "Aggiungi al comparatore"}
+            {isInComparator
+              ? "This card is being compared"
+              : "Compare this card"}
           </button>
         </div>
 
@@ -127,7 +128,7 @@ export default function CardDetail() {
       {/* Back to ListPage */}
       <div className="mt-4 text-center pb-3">
         <Link to="/" className="btn btn-secondary">
-          ← Torna alla lista
+          ← Back to Card List
         </Link>
       </div>
     </div>

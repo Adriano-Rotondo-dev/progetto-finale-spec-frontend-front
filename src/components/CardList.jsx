@@ -10,11 +10,13 @@ export default function CardList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("");
 
+  // useMemo e non useCallback perché sto usando lodash -> rivedere
   const debounceSetSearchQuery = useMemo(
     () => debounce(setSearchQuery, 500),
     []
   );
 
+  // reset del debounce => evita il memory leak su cambio pagina resettando il counter
   useEffect(() => {
     return () => {
       debounceSetSearchQuery.cancel();
@@ -27,6 +29,7 @@ export default function CardList() {
       .then((data) => setCards(data));
   }, []);
 
+  // applica il debounce solo al search, altrimenti mi rallentava anche l'input (orribile)
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
@@ -34,7 +37,7 @@ export default function CardList() {
   };
 
   const filteredCards = cards
-    // ricerca delle carte per nome {title} - debounce da inserire una volta controllato l'effettivo funzionamento
+    // ricerca delle carte per nome {title} - case insensitive
     .filter((c) => c.title.toLowerCase().includes(searchQuery.toLowerCase()))
     //filro delle carte per categoria SOLO quando è selezionata, altrimenti mostra tutte le carte.
     //* !category →  true when category === "" | null | undefined

@@ -22,6 +22,6 @@ Questa SPA permetterà agli utenti non autenticati di esplorare e confrontare le
 
 - Frontend: React (JavaScript)
 
-- Styling: Bootstrap 5
+- Styling: Bootstrap 5 e piccole scelte personalizzate per il design
 
-- Libraries - bootstrap, popperjs/core, react-router-dom, lodash.debounce
+- Libraries - bootstrap, react-router-dom, lodash.debounce

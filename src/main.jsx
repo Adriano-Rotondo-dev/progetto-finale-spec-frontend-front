@@ -8,6 +8,7 @@ import App from "./App.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import CardListPage from "./pages/CardListPage.jsx";
 import CardDetailsPage from "./pages/CardDetailsPage.jsx";
+import ComparatorPage from "./pages/ComparatorPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -20,6 +21,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="cards" element={<CardListPage />} />
         {/* Details Page */}
         <Route path="card/:id" element={<CardDetailsPage />} />
+        {/* Comparator Page */}
+        <Route path="comparator" element={<ComparatorPage />} />
       </Route>
     </Routes>
   </BrowserRouter>

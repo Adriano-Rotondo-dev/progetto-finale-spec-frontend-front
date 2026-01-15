@@ -15,7 +15,7 @@ export default function FavoritesSidebar() {
     >
       <div className="offcanvas-header border-bottom border-secondary">
         <h5 className="offcanvas-title" id="offcanvasFavoritesLabel">
-          Le tue Carte Preferite ({favorites.length})
+          Your Favorites List ({favorites.length})
         </h5>
         <button
           type="button"
@@ -26,7 +26,7 @@ export default function FavoritesSidebar() {
       </div>
       <div className="offcanvas-body">
         {favorites.length === 0 ? (
-          <p className="text-white">Non hai ancora aggiunto preferiti.</p>
+          <p className="text-white">This list is empty!</p>
         ) : (
           <ul className="list-group list-group-flush">
             {favorites.map((card) => (

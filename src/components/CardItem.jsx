@@ -17,6 +17,7 @@ export default function CardItem({ card }) {
          Una soluzione temporanea potrebbe funzionare ma non serve al momento */}
         {/* <p className="card-text">{card.manaCost}</p> */}
         <div className="d-flex justify-content-between">
+          {/* handleFavorite =>Global Context */}
           <button
             className={`btn ${
               favoriteCard ? "btn-danger" : "btn-outline-danger"
@@ -24,8 +25,8 @@ export default function CardItem({ card }) {
             onClick={() => handleFavorite(card)}
           >
             {favoriteCard ? "❤️" : "🖤"}
-            {/* reminder - fontawesome star // empty star icons qui  */}
           </button>
+          {/* handleComparator => GlobalContext */}
           <button
             className={`btn ${
               comparateCard ? "btn-success" : "btn-outline-success"
@@ -33,7 +34,6 @@ export default function CardItem({ card }) {
             onClick={() => handleComparator(card)}
           >
             Compare card
-            {/* reminder - fontawesome icon adeguata qui  */}
           </button>
         </div>
       </div>

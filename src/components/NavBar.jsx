@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
-import "../css/NavBar.css";
 
 export default function Navbar() {
   const { favorites } = useContext(GlobalContext);
@@ -21,7 +20,7 @@ export default function Navbar() {
         Dettaglio Carte
       </NavLink>
 
-      <NavLink className="nav-link p-3 text-muted" to="/">
+      <NavLink className="nav-link p-3 " to="/comparator">
         {/* Al momento, wip  */}
         Comparatore
       </NavLink>

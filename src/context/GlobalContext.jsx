@@ -28,8 +28,7 @@ export default function GlobalProvider({ children }) {
     setComparator((prev) => {
       const exists = prev.find((c) => c.id === card.id);
       if (exists) return prev.filter((c) => c.id !== card.id);
-      if (prev.length < 2) return [...prev, card];
-      return prev; // non mette pià di due carte
+      return [...prev, card];
     });
   };
 

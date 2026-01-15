@@ -12,3 +12,11 @@ body {
 body::before {
   background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65));
 }
+
+.navBg {
+  background-color: #2b253a;
+}
+/* 
+.cardGap {
+  gap: 20rem;
+} */
