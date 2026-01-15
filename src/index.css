@@ -1,0 +1,14 @@
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+
+  background-image: url("./assets/images/lorwyn_2026_bg.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+body::before {
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65));
+}

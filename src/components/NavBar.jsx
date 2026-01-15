@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
+import "../css/NavBar.css";
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light p-3">
+    <nav className="navbar navbar-expand-lg navBg p-3 text-white">
       <NavLink className="nav-link p-3" to="/" aria-current="page">
         HomePage
       </NavLink>

@@ -34,15 +34,13 @@ export default function CardDetail() {
 
   return (
     <div className="container mt-4">
-      <h2 className="text-center mb-4">{card.title}</h2>
+      <h2 className="text-center mb-4 text-white">{card.title}</h2>
 
       {/* Colonna sinistra: immagine */}
       <div className="row">
         <div className="col-md-6 d-flex flex-column align-items-center">
           <button
-            className={`btn mb-2 ${
-              isFavorite ? "btn-danger" : "btn-outline-danger"
-            }`}
+            className="btn btn-danger mb-3"
             onClick={() => handleFavorite(card)}
           >
             {isFavorite
@@ -51,7 +49,7 @@ export default function CardDetail() {
           </button>
 
           {/* imageUrl  */}
-          <div className="card mb-2" style={{ width: "50%" }}>
+          <div className="card mb-2 bg-transparent" style={{ width: "50%" }}>
             <img
               src={card.imageUrl}
               alt={card.title}
@@ -60,9 +58,7 @@ export default function CardDetail() {
           </div>
           {/* Comparatore - MANCA LA LOGICA*/}
           <button
-            className={`btn ${
-              isInComparator ? "btn-primary" : "btn-outline-primary"
-            }`}
+            className="btn btn-success mt-3"
             onClick={() => handleComparator(card)}
           >
             {isInComparator ? "Comparata" : "Aggiungi al comparatore"}
@@ -112,7 +108,7 @@ export default function CardDetail() {
       {/* Prev */}
       <div className="mt-4 pb-3 d-flex justify-content-between">
         {card.id > MinId ? (
-          <Link className="btn btn-outline-secondary" to={`/card/${prevId}`}>
+          <Link className="btn btn-secondary" to={`/card/${prevId}`}>
             ← Previous Card
           </Link>
         ) : (
@@ -120,7 +116,7 @@ export default function CardDetail() {
         )}
         {/* Next */}
         {card.id < MaxId ? (
-          <Link className="btn btn-outline-secondary" to={`/card/${nextId}`}>
+          <Link className="btn btn-secondary" to={`/card/${nextId}`}>
             Next Card →
           </Link>
         ) : (
@@ -130,7 +126,7 @@ export default function CardDetail() {
 
       {/* Back to ListPage */}
       <div className="mt-4 text-center pb-3">
-        <Link to="/" className="btn btn-outline-secondary">
+        <Link to="/" className="btn btn-secondary">
           ← Torna alla lista
         </Link>
       </div>

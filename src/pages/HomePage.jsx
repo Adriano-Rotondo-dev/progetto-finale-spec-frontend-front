@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 text-white">
       <div className="row justify-content-center">
         <div className="col-md-8 text-center">
           <h1 className="mb-4">Benvenuto a Lorwyn Revisited</h1>
