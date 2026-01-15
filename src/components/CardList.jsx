@@ -1,5 +1,6 @@
 //   reminder - debounce per l'input search
 import { useEffect, useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import debounce from "lodash.debounce";
 import CardItem from "./CardItem";
 
@@ -69,7 +70,9 @@ export default function CardList() {
         {filteredCards.length > 0 ? (
           filteredCards.map((card) => (
             <div key={card.id} className="col-md-4 mb-3">
-              <CardItem card={card} />
+              <Link to={`/card/${card.id}`} style={{ textDecoration: "none" }}>
+                <CardItem card={card} />
+              </Link>
             </div>
           ))
         ) : (

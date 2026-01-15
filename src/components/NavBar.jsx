@@ -21,7 +21,7 @@ export default function Navbar() {
       </NavLink>
 
       <NavLink className="nav-link p-3 " to="/comparator">
-        {/* Al momento, wip  */}
+        {/* Comparator */}
         Comparator
       </NavLink>
 
@@ -30,7 +30,7 @@ export default function Navbar() {
         className="btn btn-info position-relative ms-auto text-white"
         type="button"
         data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight" // Assicurati che questo ID coincida con quello nel FavoritesPanel
+        data-bs-target="#offcanvasRight"
       >
         Favorites
         {favorites && favorites.length > 0 && (

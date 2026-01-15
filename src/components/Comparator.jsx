@@ -4,6 +4,7 @@ import { GlobalContext } from "../context/GlobalContext";
 export default function Comparator() {
   const { comparator, handleComparator } = useContext(GlobalContext);
 
+  // gestione dello state vuoto del comparatore
   if (comparator.length === 0)
     return (
       <div className="d-flex flex-column justify-content-center align-items-center">
