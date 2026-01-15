@@ -6,7 +6,6 @@ function App() {
   return (
     <GlobalProvider>
       <Navbar />
-      <h1 className="text-center p-2">Hello Lorwyn Card Comparator</h1>;
       <Outlet />
     </GlobalProvider>
   );
