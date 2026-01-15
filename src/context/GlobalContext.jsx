@@ -1,10 +1,18 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const GlobalContext = createContext();
 
 export default function GlobalProvider({ children }) {
-  const [favorites, setFavorites] = useState([]); // array vuoto per salvare i preferiti
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = localStorage.getItem("mtg_favorites");
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
   const [comparator, setComparator] = useState([]); //array vuoto per il comparatore di carte
+
+  // persistenza dei preferiti
+  useEffect(() => {
+    localStorage.setItem("mtg_favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   //aggiunge o rimuove l'elemento dai preferiti
   const handleFavorite = (card) => {

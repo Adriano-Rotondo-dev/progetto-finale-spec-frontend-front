@@ -28,7 +28,7 @@ export default function CardItem({ card }) {
           </button>
           <button
             className={`btn ${
-              comparateCard ? "btn-primary" : "btn-outline-primary"
+              comparateCard ? "btn-success" : "btn-outline-success"
             }`}
             onClick={() => handleComparator(card)}
           >

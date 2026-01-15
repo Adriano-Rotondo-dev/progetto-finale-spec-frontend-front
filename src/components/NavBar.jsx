@@ -1,7 +1,11 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalContext";
 import "../css/NavBar.css";
 
 export default function Navbar() {
+  const { favorites } = useContext(GlobalContext);
+
   return (
     <nav className="navbar navbar-expand-lg navBg p-3 text-white">
       <NavLink className="nav-link p-3" to="/" aria-current="page">
@@ -21,6 +25,21 @@ export default function Navbar() {
         {/* Al momento, wip  */}
         Comparatore
       </NavLink>
+
+      {/* SideBar Favorites btn */}
+      <button
+        className="btn btn-info position-relative ms-auto text-white"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight" // Assicurati che questo ID coincida con quello nel FavoritesPanel
+      >
+        Preferiti
+        {favorites && favorites.length > 0 && (
+          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {favorites.length}
+          </span>
+        )}
+      </button>
     </nav>
   );
 }
