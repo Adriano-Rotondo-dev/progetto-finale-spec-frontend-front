@@ -1,4 +1,10 @@
-import { createContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 
 export const GlobalContext = createContext();
 
@@ -18,28 +24,34 @@ export default function GlobalProvider({ children }) {
   }, [favorites]);
 
   //aggiunge o rimuove l'elemento dai preferiti
-  const handleFavorite = (card) => {
+  const handleFavorite = useCallback((card) => {
     setFavorites((prev) =>
       prev.find((c) => c.id === card.id)
         ? prev.filter((c) => c.id !== card.id)
         : [...prev, card]
     );
-  };
+  }, []);
 
-  //Aggiunge/rimuove le carte dal comparatore (atm max 2 carte)
-  const handleComparator = (card) => {
+  //Aggiunge/rimuove le carte dal comparatore
+  const handleComparator = useCallback((card) => {
     setComparator((prev) => {
       const exists = prev.find((c) => c.id === card.id);
       if (exists) return prev.filter((c) => c.id !== card.id);
       return [...prev, card];
     });
-  };
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      favorites,
+      handleFavorite,
+      comparator,
+      handleComparator,
+    }),
+    [favorites, handleFavorite, comparator, handleComparator]
+  );
 
   return (
-    <GlobalContext.Provider
-      value={{ favorites, handleFavorite, comparator, handleComparator }}
-    >
-      {children}
-    </GlobalContext.Provider>
+    <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
   );
 }
