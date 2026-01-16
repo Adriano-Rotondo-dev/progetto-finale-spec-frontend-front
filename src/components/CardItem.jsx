@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalContext";
 
 export default function CardItem({ card }) {
@@ -11,7 +12,12 @@ export default function CardItem({ card }) {
   return (
     <div className="card h-100">
       <div className="card-body">
-        <h5 className="card-title">{card.title}</h5>
+        <Link
+          to={`/card/${card.id}`}
+          style={{ textDecoration: "none", color: "purple" }}
+        >
+          <h5 className="card-title">{card.title}</h5>
+        </Link>
         <p className="card-text set">{card.category}</p>
         {/* card mana cost rimosso -> backend filteredItems.map(riga 341)
          Una soluzione temporanea potrebbe funzionare ma non serve al momento */}

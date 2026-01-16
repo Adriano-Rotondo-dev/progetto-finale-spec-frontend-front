@@ -1,6 +1,5 @@
 //   reminder - debounce per l'input search
 import { useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import debounce from "lodash.debounce";
 import CardItem from "./CardItem";
 
@@ -37,12 +36,18 @@ export default function CardList() {
     debounceSetSearchQuery(value);
   };
 
-  const filteredCards = cards
-    // ricerca delle carte per nome {title} - case insensitive
-    .filter((c) => c.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    //filro delle carte per categoria SOLO quando è selezionata, altrimenti mostra tutte le carte.
-    //* !category →  true when category === "" | null | undefined
-    .filter((c) => !category || c.category === category);
+  const filteredCards = useMemo(() => {
+    return (
+      cards
+        // ricerca delle carte per nome {title} - case insensitive
+        .filter((c) =>
+          c.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        //filro delle carte per categoria SOLO quando è selezionata, altrimenti mostra tutte le carte.
+        //* !category →  true when category === "" | null | undefined
+        .filter((c) => !category || c.category === category)
+    );
+  }, [cards, searchQuery, category]);
 
   return (
     <div>
@@ -70,9 +75,7 @@ export default function CardList() {
         {filteredCards.length > 0 ? (
           filteredCards.map((card) => (
             <div key={card.id} className="col-md-4 mb-3">
-              <Link to={`/card/${card.id}`} style={{ textDecoration: "none" }}>
-                <CardItem card={card} />
-              </Link>
+              <CardItem card={card} />
             </div>
           ))
         ) : (
