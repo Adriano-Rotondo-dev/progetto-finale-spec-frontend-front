@@ -10,10 +10,13 @@ export default function CardList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("");
 
+  const [sortBy, setSortBy] = useState("title");
+  const [sortOrder, setSortOrder] = useState("asc");
+
   // useMemo e non useCallback perché sto usando lodash -> rivedere
   const debounceSetSearchQuery = useMemo(
     () => debounce(setSearchQuery, 500),
-    []
+    [],
   );
 
   // reset del debounce => evita il memory leak su cambio pagina resettando il counter
@@ -41,16 +44,27 @@ export default function CardList() {
       cards
         // ricerca delle carte per nome {title} - case insensitive
         .filter((c) =>
-          c.title.toLowerCase().includes(searchQuery.toLowerCase())
+          c.title.toLowerCase().includes(searchQuery.toLowerCase()),
         )
-        //filro delle carte per categoria SOLO quando è selezionata, altrimenti mostra tutte le carte.
+        //filtro delle carte per categoria SOLO quando è selezionata, altrimenti mostra tutte le carte.
         //* !category →  true when category === "" | null | undefined
         .filter((c) => !category || c.category === category)
+        //filtro per ordinamento carte
+        .slice() //
+        .sort((a, b) => {
+          const valueA = a[sortBy].toLowerCase();
+          const valueB = b[sortBy].toLowerCase();
+
+          if (valueA < valueB) return sortOrder === "asc" ? -1 : 1;
+          if (valueA > valueB) return sortOrder === "asc" ? 1 : -1;
+          return 0;
+        })
     );
-  }, [cards, searchQuery, category]);
+  }, [cards, searchQuery, category, sortBy, sortOrder]);
 
   return (
     <div>
+      {/* filtro ricerca PER titolo */}
       <input
         type="text"
         placeholder="Cerca per nome..."
@@ -58,6 +72,8 @@ export default function CardList() {
         onChange={handleSearchChange}
         className="form-control mb-2"
       />
+
+      {/* filtra PER categoria */}
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
@@ -68,6 +84,26 @@ export default function CardList() {
         <option value="Morningtide">Morningtide</option>
         <option value="Shadowmoor">Shadowmoor</option>
         <option value="Eventide">Eventide</option>
+      </select>
+
+      {/* filtro titolo / categoria */}
+      <select
+        value={sortBy}
+        onChange={(e) => setSortBy(e.target.value)}
+        className="form-select mb-3"
+      >
+        <option value="title">Titolo</option>
+        <option value="category">Categoria</option>
+      </select>
+
+      {/* ORDINAMENTO asc/desc  */}
+      <select
+        value={sortOrder}
+        onChange={(e) => setSortOrder(e.target.value)}
+        className="form-select mb-3"
+      >
+        <option value="asc">A – Z</option>
+        <option value="desc">Z – A</option>
       </select>
 
       <div className="row">
